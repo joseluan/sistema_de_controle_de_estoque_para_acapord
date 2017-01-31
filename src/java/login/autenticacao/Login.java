@@ -49,4 +49,30 @@ public class Login {
         }
         return "0";
     }
+    public String getSenha(String login) throws SQLException{
+        String sql = "select senha from administrador where login = '"+login+"'";
+        ResultSet rs = stmt.executeQuery(sql);
+        String senha = "";
+        while(rs.next()){
+            senha = rs.getString("senha");
+        }
+        return senha;
+    }
+    public String getNivel(String login) throws SQLException{
+        String sql = "select nivel from administrador where login = '"+login+"'";
+        ResultSet rs = stmt.executeQuery(sql);
+        String nivel = "";
+        while(rs.next()){
+            nivel = rs.getString("nivel");
+        }
+        return nivel;
+    }
+    public boolean existUser(String login) throws SQLException{
+        String sql = "select nivel from administrador where login = '"+login+"'";
+        ResultSet rs = stmt.executeQuery(sql);
+        while(rs.next()){
+            return true;
+        }
+        return false;
+    }
 }

@@ -13,7 +13,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
+        <meta name="description" content="Página inicial do sistema, tela de login">
         <meta name="author" content="José Luan Silva do Nascimento">
 
         <title>ACAPORD</title>
@@ -44,14 +44,47 @@
             label{
                 color: #527af2;
             }
+            h3{
+                float: left;
+                margin-left: 50px; 
+            }
+            h4{
+                color: #d9534f;
+            }
+            input#botao{
+                margin-bottom: 7%;
+            }
         </style>
     </head>
-    <%  Login lg = new Login();%>
     <body>
-      <form action="index.jsp" method="post">
+    <% 
+        if (request.getParameter("sair") != null) {
+            session.setAttribute("login", null);
+            session.setAttribute("nivel", null);
+        }
+        if(session.getAttribute("login") == null){
+    %>
+    <form action="login.jsp" method="post" class="login">
           <center>
-              <img src="imagens/logoP.jpg" title="Logo da ACAPORD">
+              <img src="imagens/LogoP.png" title="Logo da ACAPORD">
               <br/>
+              <%
+                String login = request.getParameter("login");
+                String senha = request.getParameter("senha");
+                if (login != null && senha != null) {
+                    Login lg = new Login();
+                    String vfsenha = lg.getSenha(login);
+                    if (senha.equals(vfsenha)) {
+                        String nivel = lg.getNivel(login);
+                        session.setAttribute("login",login);
+                        session.setAttribute("nivel",nivel);
+                        session.setMaxInactiveInterval(600);
+                        response.sendRedirect("index.jsp");
+                    }else{
+                        out.println("<h4>Senha ou Login incorretos !</h4>");
+                    }
+                }
+              %>
                 <div class="container">
                     <div class="form-group">
                         <label><b>Login</b></label>
@@ -59,11 +92,17 @@
                     </div>
                     <div class="form-group">
                         <label><b>Senha</b></label>
-                        <input type="password" style="width: 75%" class="form-control" placeholder="Digite a senha" name="senha">
+                        <input type="password" style="width: 75%" class="form-control" placeholder="Digite a senha" name="senha" required>
                     </div>
+                    <h3><b><a href="cadastrar_usuario.jsp" target="_blank">Cadastrar um usuário</a></b></h3>
                 </div>
-                <input type="submit" class="btn btn-lg btn-primary" value="Entrar" title="Clique aqui para entrar no sistema" /> 
+                <input type="submit" id="botao" class="btn btn-lg btn-primary" value="Entrar" title="Clique aqui para entrar no sistema" /> 
           </center>
       </form>
-    </body>
+    <%
+    }else{
+        response.sendRedirect("index.jsp");
+    }
+    %>
+    </body>   
 </html>

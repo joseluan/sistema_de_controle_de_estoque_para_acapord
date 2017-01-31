@@ -26,7 +26,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
+    <meta name="description" content="Lista de todos os produtos e atalhos para excluir e editar produtos">
     <meta name="author" content="José Luan Silva do Nascimento">
 
     <title>ACAPORD</title>
@@ -36,6 +36,7 @@
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery/mudarcor.js"></script>
     
     <link href="css/principal.css" rel="stylesheet">
     <style type="text/css">
@@ -60,6 +61,9 @@
 </head>
 
 <body>
+    <%
+        if (session.getAttribute("login") != null) {
+    %>
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -68,7 +72,7 @@
                     <span class="icon-bar"></span>
                 </button>
             </div>
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <div id="barra" class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul id="menulateral" class="nav navbar-nav side-nav">
                     <li>
                         <a class="navbar-brand" href="index.jsp">ACAPORD - SISTEMA DE CONTROLE DE ESTOQUE</a>
@@ -91,6 +95,11 @@
                             <li>
                                 <span><a href="adicionar_p_est.jsp"><span>Produto ao estoque</span></a></span>
                             </li>
+                            <% if(session.getAttribute("nivel").toString().equals("1")){ %>
+                                <li>
+                                    <span><a href="cadastrar_admin.jsp"><span>Administrador</span></a></span>
+                                </li>
+                            <% } %>
                         </ul>
                     </li>
                     <li>
@@ -98,6 +107,12 @@
                     </li>
                     <li>
                         <a href="consumo_interno.jsp">Consumo interno</a>
+                    </li>
+                    <li>
+                        <form action="login.jsp" method="post">
+                            <input style="width: 80px;height: 50px; font-size: 16pt;" type="submit" class="btn btn-xs btn-danger" value="sair">
+                            <input type="hidden" value="sair" name="sair">
+                        </form>
                     </li>
                 </ul>
             </div>
@@ -151,13 +166,13 @@
                                     <td>
                                         <form action="editar_p.jsp" method="POST">
                                             <input type="hidden" name="idprodt" value="<%=produtos.getString("id")%>">
-                                            <input type="submit" class="btn btn-lg btn-warning" value="Editar">
+                                            <input type="submit" id="bteditar" class="btn btn-lg btn-warning" value="Editar">
                                         </form>
                                     </td>
                                     <td>
                                         <form action="excluir_p.jsp" method="POST">
                                             <input type="hidden" name="idprodt" value="<%=produtos.getString("id")%>">
-                                            <input type="submit" class="btn btn-lg btn-danger" value="Excluir">
+                                            <input type="submit" id="btexcluir" class="btn btn-lg btn-danger" value="Excluir">
                                         </form>
                                     </td>
                                 </tr>
@@ -170,7 +185,6 @@
         </div>    
                 <!-- /.row -->
         </div>    
-
+    <% }else{ response.sendRedirect("login.jsp"); } %>
 </body>
-
 </html>

@@ -23,15 +23,19 @@
 
         <link href="css/bootstrap.min.css" rel="stylesheet">    
 
-    </head>
-    <body>
+</head>
+<body>
+    <%
+        if (session.getAttribute("login") != null) {
+    %>
     <center>
         <div id="page-wrapper">
             <div class="container-fluid">
+                
                 <div class="row">
+                    <img style="margin-top: 25px;" src="imagens/logo_acapord.jpg"/>
                     <h1> Associação Camarense de apoio aos portadores de deficiência</h1>
-                    <img src="imagens/logo_acapord.jpg"/>
-                    <h4>Relatório de venda do ano de <%=request.getParameter("ano")%></h4>
+                    <b><h2>Relatório de venda do ano de <%=request.getParameter("ano")%></h2></b>
                     <table class="table" style="width: 90%;">
                         <thead>
                             <tr>
@@ -88,5 +92,6 @@
             </div> 
         </div>
     </center>
-    </body>
+    <% }else{ response.sendRedirect("login.jsp"); } %>
+</body>
 </html>

@@ -18,7 +18,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
+    <meta name="description" content="Selecionando um periodo para gerar um relatório referente ao periodo escolhido">
     <meta name="author" content="José Luan Silva do Nascimento">
     
     <title>ACAPORD</title>
@@ -52,6 +52,9 @@
 </head>
 
 <body>
+    <%
+        if (session.getAttribute("login") != null) {
+    %>
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -83,6 +86,11 @@
                             <li>
                                 <span><a href="adicionar_p_est.jsp"><span>Produto ao estoque</span></a></span>
                             </li>
+                            <% if(session.getAttribute("nivel").toString().equals("1")){ %>
+                                <li>
+                                    <span><a href="cadastrar_admin.jsp"><span>Administrador</span></a></span>
+                                </li>
+                            <% } %>
                         </ul>
                     </li>
                     <li>
@@ -90,6 +98,12 @@
                     </li>
                     <li>
                         <a href="consumo_interno.jsp">Consumo interno</a>
+                    </li>
+                    <li>
+                        <form action="login.jsp" method="post">
+                            <input style="width: 80px;height: 50px; font-size: 16pt;" type="submit" class="btn btn-xs btn-danger" value="sair">
+                            <input type="hidden" value="sair" name="sair">
+                        </form>
                     </li>
                 </ul>
             </div>
@@ -140,89 +154,89 @@
                             <form method="POST" action="relatorio_mensal.jsp">
                                 <input type="hidden" value="<%=reqano%>" name="ano">
                                 <input type="hidden" value="01" name="mes">
-                                <input id="semestre" type="submit" class="btn btn-lg btn-danger" value="Janeiro"> 
+                                <input type="submit" class="btn btn-danger semestre" value="Janeiro"> 
                             </form>
                         </li>
                         <li>
                             <form method="POST" action="relatorio_mensal.jsp">
                                 <input type="hidden" value="<%=reqano%>" name="ano">
                                 <input type="hidden" value="02" name="mes">
-                                <input id="semestre" type="submit" class="btn btn-lg btn-danger" value="Fevereiro"> 
+                                <input type="submit" class="btn btn-danger semestre" value="Fevereiro"> 
                             </form>
                         </li>
                         <li>
                             <form method="POST" action="relatorio_mensal.jsp">
                                 <input type="hidden" value="<%=reqano%>" name="ano">
                                 <input type="hidden" value="03" name="mes">
-                                <input id="semestre" type="submit" class="btn btn-lg btn-danger" value="Março"> 
+                                <input type="submit" class="btn btn-danger semestre" value="Março"> 
                             </form>
                         </li>
                         <li>
                             <form method="POST" action="relatorio_mensal.jsp">
                                 <input type="hidden" value="<%=reqano%>" name="ano">
                                 <input type="hidden" value="04" name="mes">
-                                <input id="semestre" type="submit" class="btn btn-lg btn-danger" value="Abril"> 
+                                <input type="submit" class="btn btn-danger semestre" value="Abril"> 
                             </form>
                         </li>
                         <li>
                             <form method="POST" action="relatorio_mensal.jsp">
                                 <input type="hidden" value="<%=reqano%>" name="ano">
                                 <input type="hidden" value="05" name="mes">
-                                <input id="semestre" type="submit" class="btn btn-lg btn-danger" value="Maio"> 
+                                <input type="submit" class="btn btn-danger semestre" value="Maio"> 
                             </form>
                         </li>
                         <li>
                             <form method="POST" action="relatorio_mensal.jsp">
                                 <input type="hidden" value="<%=reqano%>" name="ano">
                                 <input type="hidden" value="06" name="mes">
-                                <input id="semestre" type="submit" class="btn btn-lg btn-danger" value="Junho"> 
+                                <input type="submit" class="btn btn-danger semestre" value="Junho"> 
                             </form>
                         </li>
                         <li>
                             <form method="POST" action="relatorio_mensal.jsp">
                                 <input type="hidden" value="<%=reqano%>" name="ano">
                                 <input type="hidden" value="07" name="mes">
-                                <input id="semestre" type="submit" class="btn btn-lg btn-danger" value="Julho"> 
+                                <input type="submit" class="btn btn-danger semestre" value="Julho"> 
                             </form>
                         </li>
                         <li>
                             <form method="POST" action="relatorio_mensal.jsp">
                                 <input type="hidden" value="<%=reqano%>" name="ano">
                                 <input type="hidden" value="08" name="mes">
-                                <input id="semestre" type="submit" class="btn btn-lg btn-danger" value="Agosto"> 
+                                <input type="submit" class="btn btn-danger semestre" value="Agosto"> 
                             </form>
                         </li>
                         <li>
                             <form method="POST" action="relatorio_mensal.jsp">
                                 <input type="hidden" value="<%=reqano%>" name="ano">
                                 <input type="hidden" value="09" name="mes">
-                                <input id="semestre" type="submit" class="btn btn-lg btn-danger" value="Setembro"> 
+                                <input type="submit" class="btn btn-danger semestre" value="Setembro"> 
                             </form>
                         </li>
                         <li>
                             <form method="POST" action="relatorio_mensal.jsp">
                                 <input type="hidden" value="<%=reqano%>" name="ano">
                                 <input type="hidden" value="10" name="mes">
-                                <input id="semestre" type="submit" class="btn btn-lg btn-danger" value="Outubro"> 
+                                <input type="submit" class="btn btn-danger semestre" value="Outubro"> 
                             </form>
                         </li>
                         <li>
                             <form method="post" action="relatorio_mensal.jsp">
                                 <input type="hidden" value="<%=reqano%>" name="ano">
                                 <input type="hidden" value="11" name="mes">
-                                <input id="semestre" type="submit" class="btn btn-lg btn-danger" value="Novembro"> 
+                                <input type="submit" class="btn btn-danger semestre" value="Novembro"> 
                             </form>
                         </li>
                         <li>
                             <form method="POST" action="relatorio_mensal.jsp">
                                 <input type="hidden" value="<%=reqano%>" name="ano">
                                 <input type="hidden" value="12" name="mes">
-                                <input id="semestre" type="submit" class="btn btn-lg btn-danger" value="Dezembro"> 
+                                <input type="submit" class="btn btn-danger semestre" value="Dezembro"> 
                             </form>
                         </li>
                     </ul>
                 </center>
         </div>    
+    <% }else{ response.sendRedirect("login.jsp"); } %>
 </body>
-
 </html>

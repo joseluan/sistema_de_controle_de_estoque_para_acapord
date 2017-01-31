@@ -19,7 +19,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
+    <meta name="description" content="Confirmando o consumo interno de um produto">
     <meta name="author" content="José Luan Silva do Nascimento">
 
     <title>ACAPORD</title>
@@ -60,6 +60,10 @@
 </head>
 
 <body onload="myFunction();">
+    <%
+        if (session.getAttribute("login") != null) {
+    %>
+    <% if(session.getAttribute("nivel").equals("1")){ %>
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -94,6 +98,11 @@
                             <li>
                                 <a href="adicionar_p_est.jsp"><span>Anual</span></a>
                             </li>
+                            <% if(session.getAttribute("nivel").toString().equals("1")){ %>
+                                <li>
+                                    <span><a href="cadastrar_admin.jsp"><span>Administrador</span></a></span>
+                                </li>
+                            <% } %>
                         </ul>
                     </li>
                     <li>
@@ -115,6 +124,12 @@
                     </li>
                     <li>
                         <a href="venda.jsp">Consumo interno</a>
+                    </li>
+                    <li>
+                        <form action="login.jsp" method="post">
+                            <input style="width: 80px;height: 50px; font-size: 16pt;" type="submit" class="btn btn-xs btn-danger" value="sair">
+                            <input type="hidden" value="sair" name="sair">
+                        </form>
                     </li>
                 </ul>
             </div>
@@ -195,7 +210,11 @@
                         </form>
                     </center>
         </div>    
-
+    <%
+    }else{
+        response.sendRedirect("produtos.jsp");
+    }
+    %>
+    <% }else{ response.sendRedirect("login.jsp"); } %>
 </body>
-
 </html>

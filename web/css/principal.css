@@ -7,7 +7,10 @@ and open the template in the editor.
     Created on : 02/11/2016, 20:40:17
     Author     : luan
 */
-
+form.login{
+    background: url('../imagens/frenteacapord.JPG') no-repeat;
+    background-size: 100% 100%;
+}
 div#conteudo{
     float: left;
     width: 100%;
@@ -96,28 +99,28 @@ tr th{
 }
 div#azul{
     margin: 0px 5px 0px 5px;
-    width: 300px;
+    width: 285px;
     border-radius: 15px;
     border: 3px solid #337ab7;
     color: #337ab7;
 }
 div#amarelo{
     margin: 0px 5px 0px 5px;
-    width: 300px;
+    width: 285px;
     border-radius: 15px;
     border: 3px solid #f0ad4e;
     color: #f0ad4e;
 }
 div#vermelho{
     margin: 0px 5px 0px 5px;
-    width: 300px;
+    width: 285px;
     border-radius: 15px;
     border: 3px solid #d9534f;
     color: #d9534f;
 }
 div#verde{
     margin: 0px 5px 0px 5px;
-    width: 300px;
+    width: 285px;
     border-radius: 15px;
     border: 3px solid #5cb85c;
     color: #5cb85c;
@@ -129,4 +132,10 @@ ul.infor li {
 }
 .editarP{
     width: 75%;
+}
+.semestre{
+    width: 200px;
+}
+div.container{
+    background-color: #fff;
 }

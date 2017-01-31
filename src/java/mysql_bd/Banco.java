@@ -379,4 +379,17 @@ public class Banco {
         stmtlocal.execute();
         stmtlocal.close();
     }
+    /* Cadastros de usuarios e administradores*/
+    public void cadastrarUserAdmin(String login,String senha, String nivel) throws SQLException{
+        String sql = "insert into administrador (login,senha,nivel) values " +
+                     "(?,?,?);";
+        PreparedStatement stmtlocal = conn.prepareStatement(sql);
+        stmtlocal = conn.prepareStatement(sql);
+
+        stmtlocal.setString(1, login);
+        stmtlocal.setString(2, senha);
+        stmtlocal.setString(3, nivel);
+        stmtlocal.execute();
+        stmtlocal.close();
+    }
 }

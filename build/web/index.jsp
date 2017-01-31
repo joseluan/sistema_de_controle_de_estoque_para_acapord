@@ -19,7 +19,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
+    <meta name="description" content="Pagina principal do sistema">
     <meta name="author" content="José Luan Silva do Nascimento">
 
     <title>ACAPORD</title>
@@ -30,12 +30,15 @@
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery/mudarcor.js"></script>
     
     <link href="css/principal.css" rel="stylesheet">
-
 </head>
 
 <body>
+    <%
+        if (session.getAttribute("login") != null) {
+    %>
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -47,7 +50,7 @@
                 </button>
             </div>
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <div class="collapse navbar-collapse navbar-ex1-collapse" id="barra">
                 <ul id="menulateral" class="nav navbar-nav side-nav">
                     <li>
                         <a class="navbar-brand" href="index.jsp">ACAPORD - SISTEMA DE CONTROLE DE ESTOQUE</a>
@@ -70,6 +73,11 @@
                             <li>
                                 <span><a href="adicionar_p_est.jsp"><span>Produto ao estoque</span></a></span>
                             </li>
+                            <% if(session.getAttribute("nivel").toString().equals("1")){ %>
+                                <li>
+                                    <span><a href="cadastrar_admin.jsp"><span>Administrador</span></a></span>
+                                </li>
+                            <% } %>
                         </ul>
                     </li>
                     <li>
@@ -77,6 +85,12 @@
                     </li>
                     <li>
                         <a href="consumo_interno.jsp">Consumo interno</a>
+                    </li>
+                    <li>
+                        <form action="login.jsp" method="post">
+                            <input style="width: 80px;height: 50px; font-size: 16pt;" type="submit" class="btn btn-xs btn-danger" value="sair">
+                            <input type="hidden" value="sair" name="sair">
+                        </form>
                     </li>
                 </ul>
             </div>
@@ -95,10 +109,10 @@
                 </div>
                 
                 <!-- /.row -->
-
-                <div class="row">
+                <!-- inicio dos atalhos -->
+                <div style="padding: 10px;" id="atalhorow" class="row">
                     <a href="relatorio.jsp">
-                        <div class="col-lg-3 col-md-6" id="azul">
+                        <div class="col-lg-3 col-md-6" id="azul" title="Seu saldo é de <%=b.selectSaldo()%>">
                             <div class="panel">
                                 <div class="panel-heading">
                                     <div class="row">
@@ -115,7 +129,7 @@
                         </div>
                     </a>
                     <a href="venda.jsp">
-                        <div class="col-lg-3 col-md-6" id="verde">
+                        <div class="col-lg-3 col-md-6" id="verde" title="Foram feitas <%=b.selectqtdVenda()%> vendas">
                             <div class="panel">
                                 <div class="panel-heading">
                                     <div class="row">
@@ -132,7 +146,7 @@
                         </div>
                     </a>
                     <a href="produtos.jsp">
-                        <div class="col-lg-3 col-md-6" id="amarelo">
+                        <div class="col-lg-3 col-md-6" id="amarelo" title="<%=b.selectqtdProdutosofEstoque()%> produtos no estoque">
                             <div class="panel">
                                 <div class="panel-heading">
                                     <div class="row">
@@ -149,7 +163,7 @@
                         </div>
                     </a>
                     <a href="adicionar_produto.jsp">
-                        <div class="col-lg-3 col-md-6" id="vermelho">
+                        <div class="col-lg-3 col-md-6" id="vermelho" title="<%=b.selectqtdProdutos()%> produtos registrados">
                             <div class="panel">
                                 <div class="panel-heading">
                                     <div class="row">
@@ -166,27 +180,28 @@
                         </div>
                     </a>
                 </div>
-                
+                <!-- fim dos atalhos -->
                 <div id="conteudo" >
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3>Sobre</h3>
                             </div>
                             <div id="body" class="panel-body">
-                                    <p> <h3>Com todos esses produtos são gerados registros de compras e vendas com isso
-                                    todos os anos sofriam para organizar as notas ficais para a prestação de contas anuais,
-                                    faziam todos os registros de compras numa tabela que era atualizada manualmente, isso é
-                                    muito trabalhoso e pode gerar pequenas falhas com isso muitas vezes não sabiam quanto
-                                    gastavam.</h3></p>
-                                    
-                                    <p> <h3>Com esse problema é necessário criar um sistema para controlar a produção e os
-                                    gastos da associação, onde é preciso cadastrar produtos, fazer compras, ter um estoque,
-                                    ter administradores do sistema, construir arquivos com relatórios de compras, ter
-                                    relatórios anuais, semestrais e mensais essas são algumas funções do sistema.</h3></p>
+                                    <p> 
+                                       <h3>
+                                           O Sistema de Controle de Estoque e de Produção para a ACAPORD, 
+                                           é uma ferramenta para auxiliar o controle de mercadorias que são
+                                           produzidas e vendidas na associação, tem como recursos cadastrar um
+                                           produto final produzido, adiciona-lo ao estoque, fazer uma venda e um consumo
+                                           interno do mesmo, esses dados são registrados em um banco de dados MySQL, 
+                                           com o banco de dados são gerados relatórios de venda mensal, semestral e anual.
+                                        </h3>
+                                    </p>  
                             </div>
                         </div>
                 </div>    
                 <!-- /.row -->
-        </div>    
+        </div>  
+    <% }else{ response.sendRedirect("login.jsp"); } %>
 </body>
 </html>
