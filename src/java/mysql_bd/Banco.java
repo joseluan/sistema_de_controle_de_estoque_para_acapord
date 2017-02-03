@@ -11,10 +11,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-
 
 /**
  *
@@ -37,7 +34,7 @@ public class Banco {
                                         ResultSet.CONCUR_READ_ONLY);
             stmt2 = conn.createStatement();
             System.out.println("Tudo ok, conexão feita!");
-            
+          
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("Erro: "+e.getMessage());
         }
@@ -247,21 +244,31 @@ public class Banco {
         }
         return 0;
     }
-    public int selectSaldo() throws SQLException{
-        int positivo = 0;
-        int negativo = 0;
+    public float selectSaldoP() throws SQLException{
+        float positivo = 0;
         String sql = "select (v.valorP*v.quantidade) saldo, v.doacao, v.isvenda  "
                     + " from produto p inner join venda v on (p.id = v.id_p_cp)";
         ResultSet rs2 = stmt.executeQuery(sql);
 
         while(rs2.next()){
             if (rs2.getString("doacao").contains("0") && rs2.getString("isvenda").contains("1")) {
-                positivo += rs2.getInt("saldo");
-            }else if(rs2.getString("doacao").contains("1") || rs2.getString("isvenda").contains("0")){
-                negativo += rs2.getInt("saldo");
+                positivo += rs2.getFloat("saldo");
             }
         }
-        return positivo-negativo;
+        return positivo;
+    }
+    public float selectSaldoN() throws SQLException{
+        float negativo = 0;
+        String sql = "select (v.valorP*v.quantidade) saldo, v.doacao, v.isvenda  "
+                    + " from produto p inner join venda v on (p.id = v.id_p_cp)";
+        ResultSet rs2 = stmt.executeQuery(sql);
+
+        while(rs2.next()){
+            if(rs2.getString("doacao").contains("1") || rs2.getString("isvenda").contains("0")){
+                negativo += rs2.getFloat("saldo");
+            }
+        }
+        return negativo;
     }
     public int selectqtdVenda() throws SQLException{
         String sql = "select count(id) qtd from venda";

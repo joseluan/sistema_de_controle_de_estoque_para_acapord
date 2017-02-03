@@ -147,7 +147,9 @@ f<%--
                                     <input name="valor" type="number" class="form-control editarP" placeholder="Insira o valor do seu produto" value="<%=produto.getString("valor")%>">
                                 </div>
                                 <br/>
-                            <%  } %>
+                            <%  } 
+                                produto.close();
+                            %>
                         
                             <hr/>
                             <input type="hidden" name="id" value="<%=request.getParameter("idprodt")%>">
@@ -163,6 +165,7 @@ f<%--
                      </center>
         </div>    
     <%
+    b.conn.close();
     }else{
         response.sendRedirect("produtos.jsp");
     }

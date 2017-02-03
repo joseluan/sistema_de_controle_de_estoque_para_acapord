@@ -137,7 +137,9 @@
                                 <h2>Nome do produto: <%=produto.getString("nome")%></h2><br/>
                                 <h2>Valor do produto: R$ <%=produto.getString("valor")%></h2><br/>
 
-                        <%  } %>
+                        <%  }
+                            produto.close();
+                        %>
                         <form action="excluir_p.jsp" method="POST">
                             <hr/>
                             <input type="hidden" name="id" value="<%=request.getParameter("idprodt")%>">
@@ -153,6 +155,7 @@
                      </center>
         </div> 
     <%
+    b.conn.close();
     }else{
         response.sendRedirect("produtos.jsp");
     }

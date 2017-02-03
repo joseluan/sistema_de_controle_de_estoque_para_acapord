@@ -12,8 +12,7 @@
 
 <head>
     
-    <% Banco b = new Banco(); 
-    %>
+    <% Banco b = new Banco(); %>
     
     <link rel="icon" href="imagens/icon_logo_acapord.jpg" type="image/x-icon" />
     <meta charset="utf-8">
@@ -206,11 +205,14 @@
                                 </li>
                             </ul>
                                     <input class="btn btn-primary" type="submit" style="width: 350px;" value="Consumir">
-                            <% } %>
+                            <% } 
+                               produto.close();
+                            %>
                         </form>
                     </center>
         </div>    
     <%
+    b.conn.close();
     }else{
         response.sendRedirect("produtos.jsp");
     }

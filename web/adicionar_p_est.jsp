@@ -143,7 +143,9 @@
                                         <option value="<%=produtos.getString("id")%>">
                                             <label><%=produtos.getString("nome")%></label>
                                         </option>
-                                    <% } %>
+                                    <% }
+                                        produtos.close();
+                                    %>
                                 </select>
                             </div>
                             <hr/>
@@ -159,6 +161,6 @@
                         </form>
                     </center> 
         </div>    
-    <% }else{ response.sendRedirect("login.jsp"); } %>
+    <% b.conn.close(); }else{ response.sendRedirect("index.jsp"); } %>
 </body>
 </html>

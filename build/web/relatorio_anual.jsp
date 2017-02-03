@@ -77,6 +77,7 @@
                             <% 
                                 }
                                 saldo = venda-despesa;
+                                vendaano.close();
                             %>
                         </tbody>
                     </table>
@@ -92,6 +93,6 @@
             </div> 
         </div>
     </center>
-    <% }else{ response.sendRedirect("login.jsp"); } %>
+    <% b.conn.close(); }else{ response.sendRedirect("login.jsp"); } %>
 </body>
 </html>

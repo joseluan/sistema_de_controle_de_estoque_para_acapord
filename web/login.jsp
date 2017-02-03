@@ -74,6 +74,7 @@
                 if (login != null && senha != null) {
                     Login lg = new Login();
                     String vfsenha = lg.getSenha(login);
+                    
                     if (senha.equals(vfsenha)) {
                         String nivel = lg.getNivel(login);
                         session.setAttribute("login",login);
@@ -83,6 +84,7 @@
                     }else{
                         out.println("<h4>Senha ou Login incorretos !</h4>");
                     }
+                    lg.conn.close();
                 }
               %>
                 <div class="container">

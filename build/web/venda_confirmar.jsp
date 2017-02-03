@@ -188,11 +188,14 @@
                                 </li>
                             </ul>   
                             <input class="btn btn-primary" type="submit" value="Vender">
-                            <% } %>
+                            <% } 
+                               produto.close();
+                            %>
                         </form>
                     </center>            
         </div>   
    <% 
+    b.conn.close();
     }else{
         response.sendRedirect("venda.jsp");
     }

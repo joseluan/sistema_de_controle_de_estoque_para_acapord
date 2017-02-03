@@ -160,6 +160,7 @@
                     </form>
                         <% 
                             }
+                            produtos.close();
                         %>
                     </tbody>
                 </table>
@@ -168,6 +169,6 @@
                 %>
             </center>
         </div>    
-    <% }else{ response.sendRedirect("login.jsp"); } %>
+    <% b.conn.close(); }else{ response.sendRedirect("login.jsp"); } %>
 </body>
 </html>

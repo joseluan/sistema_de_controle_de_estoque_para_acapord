@@ -77,9 +77,11 @@
                                 }else{
                                     Banco b = new Banco();
                                     b.cadastrarUserAdmin(login, senha, "1");
+                                    b.conn.close();
                                     response.sendRedirect("login.jsp");
                                 }   
                             }
+                            lg.conn.close();
                         }
                     %>
                     <div class="form-group">

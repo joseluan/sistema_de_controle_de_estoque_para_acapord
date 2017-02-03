@@ -177,7 +177,8 @@
                                     </td>
                                 </tr>
                             <% 
-                                }
+                                }   
+                                produtos.close();
                             %>
                         </tbody>
                     </table>   
@@ -185,6 +186,6 @@
         </div>    
                 <!-- /.row -->
         </div>    
-    <% }else{ response.sendRedirect("login.jsp"); } %>
+    <% b.conn.close(); }else{ response.sendRedirect("login.jsp"); } %>
 </body>
 </html>

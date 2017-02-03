@@ -34,6 +34,7 @@ public class Login {
             stmt2 = conn.createStatement();
             System.out.println("Tudo ok, conexão feita!");
             
+            
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("Erro: "+e.getMessage());
         }
@@ -47,6 +48,7 @@ public class Login {
                 return "1";
             }
         }
+        stmt.close();
         return "0";
     }
     public String getSenha(String login) throws SQLException{

@@ -112,7 +112,7 @@
                 <!-- inicio dos atalhos -->
                 <div style="padding: 10px;" id="atalhorow" class="row">
                     <a href="relatorio.jsp">
-                        <div class="col-lg-3 col-md-6" id="azul" title="Seu saldo é de <%=b.selectSaldo()%>">
+                        <div class="col-lg-3 col-md-6" id="azul" title="Seu saldo é de <%=b.selectSaldoP()-b.selectSaldoN()%>">
                             <div class="panel">
                                 <div class="panel-heading">
                                     <div class="row">
@@ -120,7 +120,7 @@
                                             <i class="fa fa-comments fa-5x"></i>
                                         </div>
                                         <div class="col-xs-9 text-right">
-                                            <div class="huge"><h2><%=b.selectSaldo()%></h2></div>
+                                            <div class="huge"><h2><%=b.selectSaldoP()-b.selectSaldoN()%></h2></div>
                                             <div><h4>Saldo!</h4></div>
                                         </div>
                                     </div>
@@ -202,6 +202,6 @@
                 </div>    
                 <!-- /.row -->
         </div>  
-    <% }else{ response.sendRedirect("login.jsp"); } %>
+    <% b.conn.close(); }else{ response.sendRedirect("login.jsp"); } %>
 </body>
 </html>

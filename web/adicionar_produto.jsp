@@ -4,6 +4,7 @@
     Author     : luan
 --%>
 
+<%@page import="java.sql.SQLException"%>
 <%@page import="mysql_bd.Banco"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -125,15 +126,22 @@
                                 String nome = request.getParameter("nome");
                                 String valor = request.getParameter("valor");
                                 String venda = request.getParameter("isvenda");
-                                b.addProduto(nome, valor, venda);
-                                ok = true;
+                                try{
+                                    b.addProduto(nome, valor, venda);
+                                    ok = true;
+                                }catch(Exception qsle){
+                                    ok = false;
+                                }
+                                
                         }
                         
                         if (ok == true) {
                     %>
-                    <div class="alert alert-success">
-                        <strong>Sucesso;!</strong> Produto salvo com sucesso.
-                    </div>
+                        <div class="alert alert-success">
+                            <h2>
+                                <h3>Sucesso!</h3> Produto salvo com sucesso.
+                            </h2>
+                        </div>
                     <%  }  %>
                     
                     <div class="col-lg-12">
@@ -159,7 +167,7 @@
                             </div>
                             <div class="form-group">
                                 <label>valor</label>
-                                <input style="width: 45%;" type="number" min="0" name="valor" class="form-control" placeholder="Insira o valor do seu produto">
+                                <input style="width: 45%;" min="0" name="valor" class="form-control" placeholder="Insira o valor do seu produto">
                             </div>
                             <br/>
                             <div class="form-group">
@@ -178,6 +186,6 @@
                         </form>
                     </center>
         </div>    
-    <% }else{ response.sendRedirect("login.jsp"); } %>
+    <% b.conn.close(); }else{ response.sendRedirect("login.jsp"); } %>
 </body>
 </html>
