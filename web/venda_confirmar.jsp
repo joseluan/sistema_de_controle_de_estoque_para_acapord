@@ -103,7 +103,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="venda.jsp">venda</a>
+                        <a href="venda.jsp">Venda</a>
                     </li>
                     <li>
                         <a href="consumo_interno.jsp">Consumo interno</a>
@@ -183,7 +183,7 @@
                                 <li>
                                    <h2>Total da venda </h2>
                                     <div class="form-group">
-                                        <input id="totalc" type="number" style="width: 30%" class="form-control" max="<%=produto.getString("quantidade")%>" disabled>
+                                        <input id="totalc" type="number" style="width: 35%" class="form-control" max="<%=produto.getString("quantidade")%>" disabled>
                                     </div> 
                                 </li>
                             </ul>   

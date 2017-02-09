@@ -89,7 +89,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="venda.jsp">venda</a>
+                        <a href="venda.jsp">Venda</a>
                     </li>
                     <li>
                         <a href="consumo_interno.jsp">Consumo interno</a>

@@ -42,7 +42,7 @@
                         <thead>
                             <tr>
                                 <th><h3>Nome</h3></th>
-                                <th><h3>Valor(R$)</h3></th>
+                                <th><h3>Valor</h3></th>
                                 <th><h3>Quantidade</h3></th>
                                 <th><h3>Total</h3></th>
                                 <th><h3>Entrada/Saída</h3></th>
@@ -60,7 +60,7 @@
                             %>
                                     <tr>
                                         <td><h3><%=vendaano.getString("nome")%></h3></td>
-                                        <td><h3><%=vendaano.getString("valorP")%></h3></td>
+                                        <td><h3>R$ <%=vendaano.getString("valorP")%></h3></td>
                                         <td><h3><%=vendaano.getString("quantidade")%></h3></td>
                                         <td><h3><%=vendaano.getString("total")%></h3></td>
                                         <td>
@@ -86,9 +86,9 @@
                     <br/>
                     <div style="float: left;text-align: justify; margin: 15px;font-size: 20pt;margin-left: 5%;">
                         <p> 
-                            Valor das vendas: <%=venda%><br/>  
-                            Valor das despesas: <%=despesa%><br/>  
-                            Saldo total: <%=saldo%>
+                            Valor das vendas: R$ <%=venda%><br/>  
+                            Valor das despesas: R$ <%=despesa%><br/>  
+                            Saldo total: R$ <%=saldo%>
                         </p>
                     </div>
                 </div>

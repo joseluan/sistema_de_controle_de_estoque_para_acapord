@@ -103,7 +103,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="venda.jsp">venda</a>
+                        <a href="venda.jsp">Venda</a>
                     </li>
                     <li>
                         <a href="consumo_interno.jsp">Consumo interno</a>
@@ -140,7 +140,7 @@
                             <tr>
                                 <th>Nome</th>
                                 <th>Valor (R$)</th>
-                                <th>Qtd. no Estoque</th>
+                                <th>Quantidade no Estoque</th>
                                 <th>Editar</th>
                                 <th>Excluir</th>
                             </tr>
@@ -152,7 +152,7 @@
                             %>
                                 <tr>
                                     <td><%=produtos.getString("nome")%></td>
-                                    <td><%=produtos.getString("valor")%></td>
+                                    <td>R$ <%=produtos.getString("valor")%></td>
                                     <td>
                                         <%  // configuração para aparecer 0 em vez de null
                                             if(produtos.getString("quantidade") != null){ %>
