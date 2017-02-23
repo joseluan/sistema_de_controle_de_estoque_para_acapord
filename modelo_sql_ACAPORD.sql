@@ -10,55 +10,114 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Copiando estrutura do banco de dados para banco_de_questoes
-CREATE DATABASE IF NOT EXISTS `banco_de_questoes` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `banco_de_questoes`;
+-- Copiando estrutura do banco de dados para acapord
+CREATE DATABASE IF NOT EXISTS `acapord` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `acapord`;
 
 
--- Copiando estrutura para tabela banco_de_questoes.aluno
-CREATE TABLE IF NOT EXISTS `aluno` (
-  `id_alun` int(11) NOT NULL AUTO_INCREMENT,
-  `matricula` bigint(20) NOT NULL DEFAULT '0',
-  `senha` varchar(50) NOT NULL DEFAULT '0',
-  `nivel` int(11) NOT NULL DEFAULT '0',
-  `data` date NOT NULL,
-  `nome` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id_alun`,`matricula`)
+-- Copiando estrutura para tabela acapord.administrador
+CREATE TABLE IF NOT EXISTS `administrador` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `login` varchar(255) NOT NULL,
+  `senha` varchar(255) DEFAULT NULL,
+  `nivel` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela banco_de_questoes.aluno: ~10 rows (aproximadamente)
-/*!40000 ALTER TABLE `aluno` DISABLE KEYS */;
-INSERT INTO `aluno` (`id_alun`, `matricula`, `senha`, `nivel`, `data`, `nome`) VALUES
-	(1, 20141064010220, '123', 1, '2017-02-08', NULL),
-	(2, 20131064010282, '123', 0, '2017-02-03', NULL),
-	(3, 123, 'admin', 0, '2017-02-08', 'zé'),
-	(4, 125, 'admin', 1, '2017-02-05', 'luan'),
-	(5, 122, 'admin', 1, '2017-02-05', 'newton'),
-	(6, 456, 'admin', 1, '2017-02-08', 'teste2'),
-	(7, 9876, 'admin', 1, '2017-02-08', 'luan'),
-	(8, 157, 'admin', 0, '2017-02-09', 'teste4'),
-	(9, 123456, '123', 1, '2017-02-09', 'newton'),
-	(10, 66613, 'admin', 1, '2017-02-09', 'vinicius');
-/*!40000 ALTER TABLE `aluno` ENABLE KEYS */;
+-- Copiando dados para a tabela acapord.administrador: ~3 rows (aproximadamente)
+/*!40000 ALTER TABLE `administrador` DISABLE KEYS */;
+INSERT INTO `administrador` (`id`, `login`, `senha`, `nivel`) VALUES
+	(1, 'admin', 'admin', 1),
+	(8, 'jesuan', '123', 1),
+	(9, 'luan', '123', 0),
+	(10, 'user', '12', 0);
+/*!40000 ALTER TABLE `administrador` ENABLE KEYS */;
 
 
--- Copiando estrutura para tabela banco_de_questoes.questao
-CREATE TABLE IF NOT EXISTS `questao` (
+-- Copiando estrutura para tabela acapord.entrada
+CREATE TABLE IF NOT EXISTS `entrada` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `pergunta` varchar(1024) DEFAULT NULL,
-  `resposta` varchar(1024) DEFAULT NULL,
-  `materia` varchar(144) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `id_p_ent` int(11) DEFAULT NULL,
+  `quantidade` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_entrada` (`id_p_ent`),
+  CONSTRAINT `fk_entrada` FOREIGN KEY (`id_p_ent`) REFERENCES `produto` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- Copiando dados para a tabela acapord.entrada: ~2 rows (aproximadamente)
+/*!40000 ALTER TABLE `entrada` DISABLE KEYS */;
+INSERT INTO `entrada` (`id`, `id_p_ent`, `quantidade`) VALUES
+	(1, 28, 10),
+	(2, 30, 12);
+/*!40000 ALTER TABLE `entrada` ENABLE KEYS */;
+
+
+-- Copiando estrutura para tabela acapord.estoque
+CREATE TABLE IF NOT EXISTS `estoque` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_p_est` int(11) DEFAULT NULL,
+  `quantidade` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_estoque` (`id_p_est`),
+  CONSTRAINT `fk_estoque` FOREIGN KEY (`id_p_est`) REFERENCES `produto` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela banco_de_questoes.questao: ~3 rows (aproximadamente)
-/*!40000 ALTER TABLE `questao` DISABLE KEYS */;
-INSERT INTO `questao` (`id`, `pergunta`, `resposta`, `materia`) VALUES
-	(1, 'teste?', 'oi', 'Manutenção'),
-	(2, 'newton é alemão??//', 'não seu gld', 'Manutenção'),
-	(3, 'luan é indiano?', 'claro q sim', 'Manutenção'),
-	(4, 'pablo é do arocha?', 'wcbnwq~cl', 'Banco de Dados');
-/*!40000 ALTER TABLE `questao` ENABLE KEYS */;
+-- Copiando dados para a tabela acapord.estoque: ~4 rows (aproximadamente)
+/*!40000 ALTER TABLE `estoque` DISABLE KEYS */;
+INSERT INTO `estoque` (`id`, `id_p_est`, `quantidade`) VALUES
+	(1, 28, 4),
+	(2, 29, 964),
+	(3, 17, 9997142),
+	(4, 30, 0);
+/*!40000 ALTER TABLE `estoque` ENABLE KEYS */;
+
+
+-- Copiando estrutura para tabela acapord.produto
+CREATE TABLE IF NOT EXISTS `produto` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(144) NOT NULL,
+  `valor` float DEFAULT NULL,
+  `venda` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`,`nome`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+
+-- Copiando dados para a tabela acapord.produto: ~9 rows (aproximadamente)
+/*!40000 ALTER TABLE `produto` DISABLE KEYS */;
+INSERT INTO `produto` (`id`, `nome`, `valor`, `venda`) VALUES
+	(17, 'carne bovina', 11, 0),
+	(18, 'sabão', 6, 0),
+	(20, 'milho pra pipoca 500g', 3, 1),
+	(21, 'Alho', 500, 1),
+	(23, 'vasoura', 16, 0),
+	(24, 'arroz', 6, 1),
+	(25, 'Galinha Caipira', 5, 0),
+	(26, 'Galinha Caipira', 25, 0),
+	(27, 'Leite Ninho', 6, 0),
+	(28, 'feijao', 6.35, 1),
+	(29, 'Tapioca', 3.99, 0),
+	(30, 'Carne de Sol', 21.57, 1);
+/*!40000 ALTER TABLE `produto` ENABLE KEYS */;
+
+
+-- Copiando estrutura para tabela acapord.venda
+CREATE TABLE IF NOT EXISTS `venda` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_p_cp` int(11) DEFAULT NULL,
+  `quantidade` int(11) DEFAULT NULL,
+  `valorP` float DEFAULT NULL,
+  `doacao` int(11) DEFAULT NULL,
+  `data` date DEFAULT NULL,
+  `isvenda` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_compra` (`id_p_cp`),
+  CONSTRAINT `fk_compra` FOREIGN KEY (`id_p_cp`) REFERENCES `produto` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+
+-- Copiando dados para a tabela acapord.venda: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `venda` DISABLE KEYS */;
+INSERT INTO `venda` (`id`, `id_p_cp`, `quantidade`, `valorP`, `doacao`, `data`, `isvenda`) VALUES
+	(15, 17, 10, 11, 0, '2017-02-09', 1);
+/*!40000 ALTER TABLE `venda` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
