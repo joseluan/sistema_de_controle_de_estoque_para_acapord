@@ -86,7 +86,8 @@
                     <li>
                         <a href="produtos.jsp">Produtos</a>
                     </li>
-                                        <li>
+                    <% if(session.getAttribute("nivel").toString().equals("1")){ %>
+                    <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo">Adicionar <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
                             <li>
@@ -95,11 +96,9 @@
                             <li>
                                 <span><a href="adicionar_p_est.jsp"><span>Produto ao estoque</span></a></span>
                             </li>
-                            <% if(session.getAttribute("nivel").toString().equals("1")){ %>
-                                <li>
-                                    <span><a href="cadastrar_admin.jsp"><span>Administrador</span></a></span>
-                                </li>
-                            <% } %>
+                            <li>
+                                <span><a href="cadastrar_admin.jsp"><span>Administrador</span></a></span>
+                            </li>
                         </ul>
                     </li>
                     <li>
@@ -108,6 +107,7 @@
                     <li>
                         <a href="consumo_interno.jsp">Consumo interno</a>
                     </li>
+                    <% } %>
                     <li>
                         <form action="login.jsp" method="post">
                             <input style="width: 80px;height: 50px; font-size: 16pt;" type="submit" class="btn btn-xs btn-danger" value="sair">
@@ -141,8 +141,10 @@
                                 <th>Nome</th>
                                 <th>Valor (R$)</th>
                                 <th>Quantidade no Estoque</th>
-                                <th>Editar</th>
-                                <th>Excluir</th>
+                                <% if(session.getAttribute("nivel").toString().equals("1")){ %>
+                                    <th>Editar</th>
+                                    <th>Excluir</th>
+                                <% } %>
                             </tr>
                         </thead>
                         <tbody>
@@ -163,22 +165,25 @@
                                             0
                                         <%  } %>
                                     </td>
-                                    <td>
-                                        <form action="editar_p.jsp" method="POST">
-                                            <input type="hidden" name="idprodt" value="<%=produtos.getString("id")%>">
-                                            <input type="submit" id="bteditar" class="btn btn-lg btn-warning" value="Editar">
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <form action="excluir_p.jsp" method="POST">
-                                            <input type="hidden" name="idprodt" value="<%=produtos.getString("id")%>">
-                                            <input type="submit" id="btexcluir" class="btn btn-lg btn-danger" value="Excluir">
-                                        </form>
-                                    </td>
+                                    <% if(session.getAttribute("nivel").toString().equals("1")){ %>
+                                        <td>
+                                            <form action="editar_p.jsp" method="POST">
+                                                <input type="hidden" name="idprodt" value="<%=produtos.getString("id")%>">
+                                                <input type="submit" id="bteditar" class="btn btn-lg btn-warning" value="Editar">
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <form action="excluir_p.jsp" method="POST">
+                                                <input type="hidden" name="idprodt" value="<%=produtos.getString("id")%>">
+                                                <input type="submit" id="btexcluir" class="btn btn-lg btn-danger" value="Excluir">
+                                            </form>
+                                        </td>
+                                    <% } %>
                                 </tr>
                             <% 
                                 }   
                                 produtos.close();
+                                b.closeAll();
                             %>
                         </tbody>
                     </table>   
@@ -186,6 +191,6 @@
         </div>    
                 <!-- /.row -->
         </div>    
-    <% b.conn.close(); }else{ response.sendRedirect("login.jsp"); } %>
+    <% }else{ response.sendRedirect("login.jsp"); } %>
 </body>
 </html>

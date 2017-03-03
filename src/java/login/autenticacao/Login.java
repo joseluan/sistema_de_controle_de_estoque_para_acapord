@@ -40,40 +40,54 @@ public class Login {
         }
         
     }
+    public void closeAll() throws SQLException{
+        stmt.close();
+        stmt2.close();
+        conn.close();
+    }
     public String efetuarLogin(String login2,String senha2) throws SQLException{
         String sql = "select * from administrador  where login = '"+login2+"' and senha = '"+senha2+"'";
-        ResultSet log = stmt.executeQuery(sql);
-        while(log.next()){
-            if (log.getString("login") != null || !"".equals(log.getString("login")) || log.getString("senha") != null) {
-                return "1";
+        try (ResultSet log = stmt.executeQuery(sql)) {
+            while(log.next()){
+                if (log.getString("login") != null || !"".equals(log.getString("login")) || log.getString("senha") != null) {
+                    return "1";
+                }
             }
+            log.close();
         }
-        stmt.close();
         return "0";
     }
     public String getSenha(String login) throws SQLException{
         String sql = "select senha from administrador where login = '"+login+"'";
-        ResultSet rs = stmt.executeQuery(sql);
-        String senha = "";
-        while(rs.next()){
-            senha = rs.getString("senha");
+        String senha;
+        try (ResultSet rslocal = stmt.executeQuery(sql)) {
+            senha = "";
+            while(rslocal.next()){
+                senha = rslocal.getString("senha");
+            }
+            rslocal.close();
         }
         return senha;
     }
     public String getNivel(String login) throws SQLException{
         String sql = "select nivel from administrador where login = '"+login+"'";
-        ResultSet rs = stmt.executeQuery(sql);
-        String nivel = "";
-        while(rs.next()){
-            nivel = rs.getString("nivel");
+        String nivel;
+        try (ResultSet rslocal = stmt.executeQuery(sql)) {
+            nivel = "";
+            while(rslocal.next()){
+                nivel = rslocal.getString("nivel");
+            }
+            rslocal.close();
         }
         return nivel;
     }
     public boolean existUser(String login) throws SQLException{
         String sql = "select nivel from administrador where login = '"+login+"'";
-        ResultSet rs = stmt.executeQuery(sql);
-        while(rs.next()){
-            return true;
+        try (ResultSet rslocal = stmt.executeQuery(sql)) {
+            while(rslocal.next()){
+                return true;
+            }
+            rslocal.close();
         }
         return false;
     }

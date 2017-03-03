@@ -93,6 +93,6 @@
             </div> 
         </div>
     </center>
-    <% b.conn.close(); }else{ response.sendRedirect("login.jsp"); } %>
+    <% b.closeAll(); }else{ response.sendRedirect("login.jsp"); } %>
 </body>
 </html>

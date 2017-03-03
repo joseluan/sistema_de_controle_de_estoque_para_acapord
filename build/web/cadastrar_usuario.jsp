@@ -76,11 +76,11 @@
                                 }else{
                                     Banco b = new Banco();
                                     b.cadastrarUserAdmin(login, senha, "0");
-                                    b.conn.close();
+                                    b.closeAll();
                                     response.sendRedirect("login.jsp");
                                 }   
                             }
-                            lg.conn.close();
+                            lg.closeAll();
                         }
                     %>
                     <div class="form-group">

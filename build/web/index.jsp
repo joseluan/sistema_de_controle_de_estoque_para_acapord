@@ -64,7 +64,8 @@
                     <li>
                         <a href="produtos.jsp">Produtos</a>
                     </li>
-                                        <li>
+                    <% if(session.getAttribute("nivel").toString().equals("1")){ %>
+                    <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo">Adicionar <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
                             <li>
@@ -73,11 +74,9 @@
                             <li>
                                 <span><a href="adicionar_p_est.jsp"><span>Produto ao estoque</span></a></span>
                             </li>
-                            <% if(session.getAttribute("nivel").toString().equals("1")){ %>
-                                <li>
-                                    <span><a href="cadastrar_admin.jsp"><span>Administrador</span></a></span>
-                                </li>
-                            <% } %>
+                            <li>
+                                <span><a href="cadastrar_admin.jsp"><span>Administrador</span></a></span>
+                            </li>
                         </ul>
                     </li>
                     <li>
@@ -86,12 +85,14 @@
                     <li>
                         <a href="consumo_interno.jsp">Consumo interno</a>
                     </li>
+                    <% } %>
                     <li>
                         <form action="login.jsp" method="post">
                             <input style="width: 80px;height: 50px; font-size: 16pt;" type="submit" class="btn btn-xs btn-danger" value="sair">
                             <input type="hidden" value="sair" name="sair">
                         </form>
                     </li>
+                    
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -202,6 +203,6 @@
                 </div>    
                 <!-- /.row -->
         </div>  
-    <% b.conn.close(); }else{ response.sendRedirect("login.jsp"); } %>
+    <% b.closeAll(); }else{ response.sendRedirect("login.jsp"); } %>
 </body>
 </html>

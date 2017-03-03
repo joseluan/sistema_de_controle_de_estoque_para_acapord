@@ -84,7 +84,7 @@
                     }else{
                         out.println("<h4>Senha ou Login incorretos !</h4>");
                     }
-                    lg.conn.close();
+                    lg.closeAll();
                 }
               %>
                 <div class="container">

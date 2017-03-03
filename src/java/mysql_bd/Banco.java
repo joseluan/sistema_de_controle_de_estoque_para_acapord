@@ -40,6 +40,11 @@ public class Banco {
         }
         
     }
+    public void closeAll() throws SQLException{
+        stmt.close();
+        stmt2.close();
+        conn.close();
+    }
     
     /*adicionando registro*/
     public void addProduto(String nome, String valor, String venda) throws SQLException{
@@ -52,6 +57,7 @@ public class Banco {
             stmtlocal.setString(3, venda);
             
             stmtlocal.execute();
+            stmtlocal.close();
         }
     }
     public void addVenda(String id, String quantidade, String quantidadeest,String valorP, String doacao,String isvenda) throws SQLException{
@@ -154,6 +160,7 @@ public class Banco {
                             stmtlocal.setString(2, id);
                             
                             stmtlocal.execute();
+                            stmtlocal.close();
                         }
                     }
                 }
@@ -189,6 +196,7 @@ public class Banco {
                             stmtlocal.setString(2, quantidade);
                             
                             stmtlocal.execute();
+                            stmtlocal.close();
                         }
                     }
                 }
@@ -230,17 +238,21 @@ public class Banco {
     }
     public int selectqtdProdutos() throws SQLException{
         String sql = "select count(id) qtd from produto";
-        ResultSet rs2 = stmt.executeQuery(sql);
-        while(rs2.next()){
-            return rs2.getInt("qtd");
+        try (ResultSet rs2 = stmt.executeQuery(sql)) {
+            while(rs2.next()){
+                return rs2.getInt("qtd");
+            }
+            rs2.close();
         }
         return 0;
     }
     public int selectqtdProdutosofEstoque() throws SQLException{
         String sql = "select sum(est.quantidade) soma from produto p inner join estoque est on (p.id = est.id_p_est)";
-        ResultSet rs2 = stmt.executeQuery(sql);
-        while(rs2.next()){
-            return rs2.getInt("soma");
+        try (ResultSet rs2 = stmt.executeQuery(sql)) {
+            while(rs2.next()){
+                return rs2.getInt("soma");
+            }
+            rs2.close();
         }
         return 0;
     }
@@ -248,12 +260,13 @@ public class Banco {
         float positivo = 0;
         String sql = "select (v.valorP*v.quantidade) saldo, v.doacao, v.isvenda  "
                     + " from produto p inner join venda v on (p.id = v.id_p_cp)";
-        ResultSet rs2 = stmt.executeQuery(sql);
-
-        while(rs2.next()){
-            if (rs2.getString("doacao").contains("0") && rs2.getString("isvenda").contains("1")) {
-                positivo += rs2.getFloat("saldo");
+        try (ResultSet rs2 = stmt.executeQuery(sql)) {
+            while(rs2.next()){
+                if (rs2.getString("doacao").contains("0") && rs2.getString("isvenda").contains("1")) {
+                    positivo += rs2.getFloat("saldo");
+                }
             }
+            rs2.close();
         }
         return positivo;
     }
@@ -261,20 +274,23 @@ public class Banco {
         float negativo = 0;
         String sql = "select (v.valorP*v.quantidade) saldo, v.doacao, v.isvenda  "
                     + " from produto p inner join venda v on (p.id = v.id_p_cp)";
-        ResultSet rs2 = stmt.executeQuery(sql);
-
-        while(rs2.next()){
-            if(rs2.getString("doacao").contains("1") || rs2.getString("isvenda").contains("0")){
-                negativo += rs2.getFloat("saldo");
+        try (ResultSet rs2 = stmt.executeQuery(sql)) {
+            while(rs2.next()){
+                if(rs2.getString("doacao").contains("1") || rs2.getString("isvenda").contains("0")){
+                    negativo += rs2.getFloat("saldo");
+                }
             }
+            rs2.close();
         }
         return negativo;
     }
     public int selectqtdVenda() throws SQLException{
         String sql = "select count(id) qtd from venda";
-        ResultSet rs2 = stmt2.executeQuery(sql);
-        while(rs2.next()){
-            return rs2.getInt("qtd");
+        try (ResultSet rs2 = stmt2.executeQuery(sql)) {
+            while(rs2.next()){
+                return rs2.getInt("qtd");
+            }
+            rs2.close();
         }
         return 0;
     }
@@ -320,22 +336,26 @@ public class Banco {
     public static boolean produtoExisteEstoque(String id) throws SQLException{
         String sql2 = "select * from estoque "
                     + " where id_p_est = "+id;
-        ResultSet estp = stmt.executeQuery(sql2);
-        while (estp.next()) {
-            if (!"".equals(estp.getString("id_p_est")) || estp.getString("id_p_est") != null) {
-                return true;
-            } 
+        try (ResultSet estp = stmt.executeQuery(sql2)) {
+            while (estp.next()) {
+                if (!"".equals(estp.getString("id_p_est")) || estp.getString("id_p_est") != null) {
+                    return true;
+                } 
+            }
+            estp.close();
         }
         return false;
     }
     public static boolean produtoExisteVenda(String id) throws SQLException{
         String sql2 = "select * from venda "
                     + " where id_p_cp = "+id;
-        ResultSet estp = stmt.executeQuery(sql2);
-        while (estp.next()) {
-            if (!"".equals(estp.getString("id_p_cp")) || estp.getString("id_p_cp") != null) {
-                return true;
-            } 
+        try (ResultSet estp = stmt.executeQuery(sql2)) {
+            while (estp.next()) {
+                if (!"".equals(estp.getString("id_p_cp")) || estp.getString("id_p_cp") != null) {
+                    return true;
+                } 
+            }
+            estp.close();
         }
         return false;
     }
@@ -377,26 +397,24 @@ public class Banco {
         String sql = "update produto "
                    + " set nome = ?, valor = ? "
                    + " where id = ?";
-        PreparedStatement stmtlocal = conn.prepareStatement(sql);
-        stmtlocal = conn.prepareStatement(sql);
-
-        stmtlocal.setString(1, nome);
-        stmtlocal.setString(2, valor);
-        stmtlocal.setString(3, id);
-        stmtlocal.execute();
-        stmtlocal.close();
+        try (PreparedStatement stmtlocal = conn.prepareStatement(sql)) {
+            stmtlocal.setString(1, nome);
+            stmtlocal.setString(2, valor);
+            stmtlocal.setString(3, id);
+            stmtlocal.execute();
+            stmtlocal.close();
+        }
     }
     /* Cadastros de usuarios e administradores*/
     public void cadastrarUserAdmin(String login,String senha, String nivel) throws SQLException{
         String sql = "insert into administrador (login,senha,nivel) values " +
                      "(?,?,?);";
-        PreparedStatement stmtlocal = conn.prepareStatement(sql);
-        stmtlocal = conn.prepareStatement(sql);
-
-        stmtlocal.setString(1, login);
-        stmtlocal.setString(2, senha);
-        stmtlocal.setString(3, nivel);
-        stmtlocal.execute();
-        stmtlocal.close();
+        try (PreparedStatement stmtlocal = conn.prepareStatement(sql)) {
+            stmtlocal.setString(1, login);
+            stmtlocal.setString(2, senha);
+            stmtlocal.setString(3, nivel);
+            stmtlocal.execute();
+            stmtlocal.close();
+        }
     }
 }

@@ -66,7 +66,8 @@
                     <li>
                         <a href="produtos.jsp">Produtos</a>
                     </li>
-                                        <li>
+                    <% if(session.getAttribute("nivel").toString().equals("1")){ %>
+                    <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo">Adicionar <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
                             <li>
@@ -75,19 +76,18 @@
                             <li>
                                 <span><a href="adicionar_p_est.jsp"><span>Produto ao estoque</span></a></span>
                             </li>
-                            <% if(session.getAttribute("nivel").toString().equals("1")){ %>
-                                <li>
-                                    <span><a href="cadastrar_admin.jsp"><span>Administrador</span></a></span>
-                                </li>
-                            <% } %>
+                            <li>
+                                <span><a href="cadastrar_admin.jsp"><span>Administrador</span></a></span>
+                            </li>
                         </ul>
                     </li>
                     <li>
                         <a href="venda.jsp">Venda</a>
                     </li>
                     <li>
-                        <a href="venda.jsp">Consumo interno</a>
+                        <a href="consumo_interno.jsp">Consumo interno</a>
                     </li>
+                    <% } %>
                     <li>
                         <form action="login.jsp" method="post">
                             <input style="width: 80px;height: 50px; font-size: 16pt;" type="submit" class="btn btn-xs btn-danger" value="sair">
@@ -145,6 +145,7 @@
                                         </option>
                                     <% }
                                         produtos.close();
+                                        b.closeAll();
                                     %>
                                 </select>
                             </div>
@@ -161,6 +162,6 @@
                         </form>
                     </center> 
         </div>    
-    <% b.conn.close(); }else{ response.sendRedirect("index.jsp"); } %>
+    <% }else{ response.sendRedirect("index.jsp"); } %>
 </body>
 </html>
