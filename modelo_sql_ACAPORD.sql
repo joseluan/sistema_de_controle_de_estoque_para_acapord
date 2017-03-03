@@ -27,10 +27,7 @@ CREATE TABLE IF NOT EXISTS `administrador` (
 -- Copiando dados para a tabela acapord.administrador: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `administrador` DISABLE KEYS */;
 INSERT INTO `administrador` (`id`, `login`, `senha`, `nivel`) VALUES
-	(1, 'admin', 'admin', 1),
-	(8, 'jesuan', '123', 1),
-	(9, 'luan', '123', 0),
-	(10, 'user', '12', 0);
+	(1, 'admin', 'admin', 1);
 /*!40000 ALTER TABLE `administrador` ENABLE KEYS */;
 
 
